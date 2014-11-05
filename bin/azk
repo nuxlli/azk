@@ -83,6 +83,10 @@ npm() {
   exec $AZK_NODE_PATH/npm --cache=${AZK_DATA_PATH}/nvm/cache ${@}
 }
 
+docker() {
+  exec azk docker ${@}
+}
+
 azk_main() {
   make_data_folders
   case "$1" in
