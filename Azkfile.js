@@ -2,13 +2,10 @@
  * Documentation: http://docs.azk.io/Azkfile.js
  */
 
-// Global image to reuse
-//addImage('base', { repository: "cevich/empty_base_image" }); // tag: latest
-
-
-var lodash = require('lodash');
-var join   = require('path').join;
-var config = require('azk').config;
+var lodash  = require('lodash');
+var join    = require('path').join;
+var config  = require('azk').config;
+var version = require('azk').version;
 
 var mounts = (function() {
   var glob = require('glob');
@@ -53,7 +50,7 @@ var agent_system = function(image, extras) {
       LOG: "file",
       NODE_ENV: "test",
       EXTRA_SCRIPT: "/azk/#{manifest.dir}/src/libexec/init_azk",
-      VERSION: "0.6.0",
+      VERSION: version,
     },
     docker_extra: {
       start: { Privileged: true },
@@ -86,6 +83,7 @@ var test_package_system = function(image){
 systems({
   'dind-ubuntu': agent_system('azukiapp/dind:ubuntu14'),
   'dind-fedora': agent_system('azukiapp/dind:fedora20'),
+  'dind-debian': agent_system('azukiapp/dind:debian'),
 
   package: agent_system('azukiapp/fpm', {
     provision: [
@@ -105,7 +103,8 @@ systems({
 
   'pkg-ubuntu12-test': test_package_system('azukiapp/dind:ubuntu12'),
   'pkg-ubuntu14-test': test_package_system('azukiapp/dind:ubuntu14'),
-  'pkg-fedora-test': test_package_system('azukiapp/dind:fedora20'),
+  'pkg-fedora-test':   test_package_system('azukiapp/dind:fedora20'),
+  'pkg-debian-test':   test_package_system('azukiapp/dind:debian'),
 
   grunt: {
     image: "dockerfile/nodejs",
