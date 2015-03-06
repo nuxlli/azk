@@ -5,6 +5,8 @@ dependencies:
   cache_directories:
     - lib/nvm
   pre:
+    - docker info
+    - docker version
     - bash src/libexec/pre_circle.sh
   override:
     # Install azk dependencies
