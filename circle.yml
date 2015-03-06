@@ -11,5 +11,6 @@ dependencies:
     - docker pull azukiapp/azktcl:0.0.2
 test:
   override:
-    - ./bin/azk agent start
+    - ./bin/azk agent start --no-daemon > $CIRCLE_ARTIFACTS/azk-agent-start.log 2>&1 &
+    - until ./bin/azk status --quiet; do sleep 1; done
     - ./bin/azk nvm grunt slow_test
