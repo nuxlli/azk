@@ -11,7 +11,8 @@ dependencies:
     - make dependencies
     - make
     - docker pull azukiapp/azktcl:0.0.2
+    - ./bin/azk agent start --no-daemon:
+        background: true
 test:
   override:
-    - ./bin/azk agent start --no-daemon
     - ./bin/azk nvm grunt slow_test
