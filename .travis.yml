@@ -12,4 +12,4 @@ cache:
     - $HOME/.azk
 script: ./src/libexec/script_ci.sh
 after_script:
-  - ./bin/azk agent stop
+  - /sbin/start-stop-daemon --stop --pidfile /tmp/azk_server_99.pid ./bin/azk agent stop
