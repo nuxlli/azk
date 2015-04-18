@@ -5,6 +5,10 @@ before_install:
   - brew install caskroom/cask/brew-cask
   - brew cask install virtualbox
   - make
+cache:
+  directories:
+  - node_modules
+  - lib
 before_script:
   - ./bin/azk agent start
 script:
