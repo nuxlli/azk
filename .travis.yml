@@ -10,6 +10,8 @@ cache:
     - node_modules
     - lib
     - $HOME/.azk
-script: ./src/libexec/script_ci.sh
+script:
+  - ./src/libexec/script_ci.sh
+  - VBoxManage startvm azk-vm-azk.dev --type headless
 after_script:
-  - /sbin/start-stop-daemon --stop --pidfile /tmp/azk_server_99.pid ./bin/azk agent stop
+  - ./bin/azk agent stop
