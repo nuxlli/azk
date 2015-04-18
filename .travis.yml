@@ -10,6 +10,7 @@ cache:
   - node_modules
   - lib
 before_script:
+  - echo "nameserver 192.168.50.4.53" | sudo tee /etc/resolver/dev.azk.io
   - ./bin/azk agent start
 script:
   - ./bin/azk nvm npm run test:slow
