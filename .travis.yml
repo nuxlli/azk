@@ -1,0 +1,13 @@
+os:
+  - osx
+before_install:
+  - brew update
+  - brew install caskroom/cask/brew-cask
+  - brew cask install virtualbox
+  - make
+before_script:
+  - ./bin/azk agent start
+script:
+  - ./bin/azk nvm npm run test:slow
+after_script:
+  - ./bin/azk agent stop
