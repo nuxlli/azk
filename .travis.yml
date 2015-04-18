@@ -2,6 +2,7 @@ os:
   - osx
 before_install:
   - brew update
+install:
   - brew install caskroom/cask/brew-cask
   - brew cask install virtualbox
   - make
