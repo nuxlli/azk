@@ -12,6 +12,6 @@ cache:
     - $HOME/.azk
 script:
   - ./src/libexec/script_ci.sh
-  - VBoxManage startvm azk-vm-azk.dev --type headless
+  - VBoxManage startvm azk-vm-dev.azk.io --type headless
 after_script:
   - ./bin/azk agent stop
