@@ -10,12 +10,6 @@ cache:
     - node_modules
     - lib
     - $HOME/.azk
-before_script:
-  - sudo mkdir /etc/resolver/
-  - echo "nameserver 192.168.50.4.53" | sudo tee /etc/resolver/dev.azk.io
-  - ./bin/azk nvm node -e "require('azk').meta.set('tracker_permission', false);"
-  - ./bin/azk agent start
-script:
-  - ./bin/azk nvm npm run test:slow
+script: ./src/libexec/script_ci.sh
 after_script:
   - ./bin/azk agent stop
