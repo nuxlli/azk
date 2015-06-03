@@ -310,7 +310,7 @@ var Balancer = {
   _check_config(ip, port, memcached_socket) {
     var file = config('paths:balancer_file');
     var log  = path.join(config('paths:logs'), "hipache_access.log");
-    var bind = ["127.0.0.1", "::1"];
+    var bind = config('agent:balancer:http_bind');
 
     // Only ip not a null
     if (ip) { bind.push(ip); }

@@ -92,6 +92,7 @@ var options = mergeConfig({
         host: envs('AZK_BALANCER_HOST'),
         port: envs('AZK_BALANCER_PORT', 80),
         file_dns: "/etc/resolver/" + envs('AZK_BALANCER_HOST'),
+        http_bind: envs('AZK_BALANCER_BIND', ["127.0.0.1", "::1"], ','),
       },
       dns: {
         ip  : new Dynamic("agent:dns:ip"),

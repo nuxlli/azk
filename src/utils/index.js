@@ -39,9 +39,13 @@ var Utils = {
     return lazy;
   },
 
-  envs(key, defaultValue = null) {
+  envs(key, defaultValue = null, split_char = null) {
     var value = process.env[key];
-    if (value === 'undefined') { value = undefined; }
+    if (value === 'undefined') {
+      value = undefined;
+    } else if (!_.isEmpty(split_char) && !_.isEmpty(value)) {
+      value = value.split(split_char);
+    }
     return value || (_.isFunction(defaultValue) ? defaultValue() : defaultValue);
   },
 
