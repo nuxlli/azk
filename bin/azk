@@ -28,10 +28,15 @@ export AZK_DATA_PATH=${AZK_DATA_PATH:-$HOME/.azk/data$data_namespace} # sockets,
 export AZK_LIB_PATH=${AZK_LIB_PATH:-$AZK_ROOT_PATH/lib};              # transpiled files from src and node runtime
 export AZK_NPM_PATH=${AZK_NPM_PATH:-$AZK_ROOT_PATH/node_modules};     # package dependencies
 
+# Load dependencies versions
+. ${AZK_ROOT_PATH}/.dependencies
+export AZK_ISO_VERSION=${AZK_ISO_VERSION}
+export LIBNSS_RESOLVER_VERSION=${LIBNSS_RESOLVER_VERSION}
+export RSYNC_MIN_VERSION=${RSYNC_MIN_VERSION}
+
 # Nvm paths and configs
-node_version=`cat $AZK_ROOT_PATH/.nvmrc`
 export NVM_DIR=$AZK_LIB_PATH/nvm
-export AZK_NODE_PATH=${AZK_NODE_PATH:-$NVM_DIR/$node_version/bin}
+export AZK_NODE_PATH=${AZK_NODE_PATH:-$NVM_DIR/${NVM_NODE_VERSION}/bin}
 
 # Node load paths
 export NODE_PATH=$NVM_DIR/$node_version/node_modules
@@ -43,12 +48,6 @@ export NODE_PATH=$AZK_LIB_PATH:$NODE_PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=$AZK_NODE_PATH:$PATH
 export PATH=$AZK_NPM_PATH/.bin:$PATH
-
-# Load dependencies versions
-. ${AZK_ROOT_PATH}/.dependencies
-export AZK_ISO_VERSION=${AZK_ISO_VERSION}
-export LIBNSS_RESOLVER_VERSION=${LIBNSS_RESOLVER_VERSION}
-export RSYNC_MIN_VERSION=${RSYNC_MIN_VERSION}
 
 # Agent opts
 export AZK_AGENT_LOG_OUT_FILE=$AZK_DATA_PATH/logs/agent.log.out

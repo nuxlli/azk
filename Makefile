@@ -4,7 +4,7 @@ AZK_VERSION:=$(shell cat package.json | grep -e "version" | cut -d' ' -f4 | sed 
 AZK_ROOT_PATH:=$(shell pwd)
 AZK_LIB_PATH:=${AZK_ROOT_PATH}/lib
 AZK_NPM_PATH:=${AZK_ROOT_PATH}/node_modules
-NVM_BIN_PATH:=${AZK_ROOT_PATH}/src/libexec/nvm.sh
+NVM_BIN_PATH:=${AZK_LIB_PATH}/nvm.sh
 
 AZK_BIN:=${AZK_ROOT_PATH}/bin/azk
 
@@ -16,7 +16,6 @@ all: bootstrap
 
 # BOOTSTRAP
 NVM_DIR := ${AZK_LIB_PATH}/nvm
-NVM_NODE_VERSION := $(shell cat ${AZK_ROOT_PATH}/.nvmrc)
 NODE = ${NVM_DIR}/${NVM_NODE_VERSION}/bin/node
 VM_DISKS_DIR := ${AZK_LIB_PATH}/vm/${AZK_ISO_VERSION}
 
@@ -40,8 +39,8 @@ ${AZK_NPM_PATH}/.install: npm-shrinkwrap.json package.json ${NODE}
 		touch ${AZK_NPM_PATH}/.install
 
 ${NODE}:
-	@echo "task: $@: ${NVM_NODE_VERSION}"
-	@export NVM_DIR=${NVM_DIR} && \
+	@echo "install node ${NVM_NODE_VERSION} in $@"
+	@set +x && export NVM_DIR=${NVM_DIR} && \
 		mkdir -p ${NVM_DIR} && \
 		. ${NVM_BIN_PATH} && \
 		nvm install $(NVM_NODE_VERSION) && \
@@ -53,19 +52,26 @@ clean:
 	@rm -Rf ${AZK_NPM_PATH}/..?* ${AZK_NPM_PATH}/.[!.]* ${AZK_NPM_PATH}/*
 	@rm -Rf ${NVM_DIR}/..?* ${NVM_DIR}/.[!.]* ${NVM_DIR}/*
 
-bootstrap: ${AZK_LIB_PATH}/azk dependencies
+bootstrap: dependencies ${AZK_LIB_PATH}/azk
 
-dependencies: ${AZK_LIB_PATH}/bats ${VM_DISKS_DIR}/azk.iso ${VM_DISKS_DIR}/azk-agent.vmdk.gz
+dependencies: ${AZK_LIB_PATH}/nvm.sh ${AZK_LIB_PATH}/bats ${VM_DISKS_DIR}/azk.iso ${VM_DISKS_DIR}/azk-agent.vmdk.gz
 
 S3_URL=https://s3-sa-east-1.amazonaws.com/repo.azukiapp.com/vm_disks/${AZK_ISO_VERSION}
 ${VM_DISKS_DIR}/azk.iso:
 	@echo Downloading: ${S3_URL}/azk.iso ...
 	@mkdir -p ${VM_DISKS_DIR}
-	@curl ${S3_URL}/azk.iso -o ${VM_DISKS_DIR}/azk.iso
+	@curl ${S3_URL}/azk.iso -o ${@}
 
 ${VM_DISKS_DIR}/azk-agent.vmdk.gz:
 	@echo Downloading: ${S3_URL}/azk-agent.vmdk.gz ...
-	@curl ${S3_URL}/azk-agent.vmdk.gz -o ${VM_DISKS_DIR}/azk-agent.vmdk.gz
+	@curl ${S3_URL}/azk-agent.vmdk.gz -o ${@}
+
+NVM_URL=https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/nvm.sh
+${AZK_LIB_PATH}/nvm.sh:
+	@echo "$@"
+	@echo Downloading: ${NVM_URL} ...
+	@curl ${NVM_URL} -o ${@}
+	@chmod +x ${@}
 
 ${AZK_LIB_PATH}/bats:
 	@git clone -b ${BATS_VERSION} https://github.com/sstephenson/bats ${AZK_LIB_PATH}/bats
@@ -154,7 +160,7 @@ $(abspath $(2)/$(3)): $(abspath $(1)/$(3))
 endef
 
 # copy regular files
-FILES_FILTER  = package.json bin shared .nvmrc CHANGELOG.md LICENSE README.md .dependencies
+FILES_FILTER  = package.json bin shared CHANGELOG.md LICENSE README.md .dependencies
 FILES_ALL     = $(shell cd ${AZK_ROOT_PATH} && find $(FILES_FILTER) -print 2>/dev/null)
 FILES_TARGETS = $(foreach file,$(addprefix $(PATH_USR_LIB_AZK)/, $(FILES_ALL)),$(abspath $(file)))
 $(foreach file,$(FILES_ALL),$(eval $(call COPY_FILES,$(AZK_ROOT_PATH),$(PATH_USR_LIB_AZK),$(file))))
