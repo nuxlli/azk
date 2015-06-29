@@ -36,7 +36,7 @@ export RSYNC_MIN_VERSION=${RSYNC_MIN_VERSION}
 
 # Nvm paths and configs
 export NVM_DIR=$AZK_LIB_PATH/nvm
-export AZK_NODE_PATH=${AZK_NODE_PATH:-$NVM_DIR/${NVM_NODE_VERSION}/bin}
+export AZK_NODE_PATH=${AZK_NODE_PATH:-$NVM_DIR/versions/io.js/${NODE_VERSION#*-}/bin}
 
 # Node load paths
 export NODE_PATH=$NVM_DIR/$node_version/node_modules
@@ -94,7 +94,7 @@ npm() {
 }
 
 azk_node_run() {
-  exec $AZK_NODE_PATH/node --harmony $AZK_ROOT_PATH/bin/azk.js "${@}"
+  exec $AZK_NODE_PATH/node $AZK_ROOT_PATH/bin/azk.js "${@}"
 }
 
 azk_agent_daemon() {
