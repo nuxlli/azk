@@ -4,6 +4,7 @@ machine:
 dependencies:
   cache_directories:
     - lib/nvm
+    - lib/vm
     - lib/node_modules
   pre:
     - docker info
@@ -13,8 +14,7 @@ dependencies:
     # Install azk dependencies
     - make
     - docker pull azukiapp/azktcl:0.0.2
-    - ./bin/azk agent start --no-daemon --quite:
-        background: true
+    - ./bin/azk agent start --quiet
 test:
   override:
-    - ./bin/azk nvm grunt test --slow
+    - ./bin/azk nvm gulp test --slow
