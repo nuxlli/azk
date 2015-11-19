@@ -4,17 +4,17 @@ machine:
 dependencies:
   cache_directories:
     - lib/nvm
+    - lib/node_modules
   pre:
     - docker info
     - docker version
     - bash src/libexec/pre_circle.sh
   override:
     # Install azk dependencies
-    - make dependencies
     - make
     - docker pull azukiapp/azktcl:0.0.2
-    - ./bin/azk agent start --no-daemon:
+    - ./bin/azk agent start --no-daemon --quite:
         background: true
 test:
   override:
-    - ./bin/azk nvm grunt slow_test
+    - ./bin/azk nvm grunt test --slow
