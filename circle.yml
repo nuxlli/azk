@@ -1,6 +1,9 @@
 machine:
   services:
     - docker
+  environment:
+    AZK_ENV: development
+
 dependencies:
   cache_directories:
     - lib/nvm
@@ -15,6 +18,7 @@ dependencies:
     - make
     - docker pull azukiapp/azktcl:0.0.2
     - ./bin/azk agent start --quiet
+
 test:
   override:
     - ./bin/azk nvm gulp test --slow
