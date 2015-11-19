@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## dev
+
+* Enhancements
+  * [Core] Replacing base services image from `azukiapp/azktcl:0.0.2` to `azukiapp/internal-services:0.4.0`
+
 ## v0.16.2 - (2015-11-17)
 
 * Enhancements

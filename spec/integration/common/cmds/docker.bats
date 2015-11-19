@@ -2,8 +2,8 @@
 
 load ../../test_helper
 
-image_name="azukiapp/azktcl"
- image_tag="0.0.2"
+image_name="azukiapp/internal-services"
+ image_tag="0.4.0"
 
 @test "$test_label list images" {
   run azk docker images

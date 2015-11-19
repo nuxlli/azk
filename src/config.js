@@ -94,7 +94,7 @@ var options = mergeConfig({
       repository      : 'azk',
       default_domain  : 'azk',
       build_name      : 'azkbuild',
-      image_default   : 'azukiapp/azktcl:0.0.2',
+      image_default   : 'azukiapp/internal-services:0.4.0',
       remove_container: envs('AZK_REMOVE_CONTAINER', true),
       run: {
         timeout: 10000

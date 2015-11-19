@@ -12,7 +12,7 @@ systems({
     // Dependent systems
     depends: [],
     // More images:  http://images.azk.io
-    image: {"docker": "azukiapp/azktcl:0.0.2"},
+    image: {"docker": "azukiapp/internal-services:0.4.0"},
     workdir: "/azk/#{manifest.dir}",
     shell: "/bin/bash",
     command: socat('80') + " &0>/dev/null ; " + socat('53') + " &0>/dev/null ; " + socat('53'),

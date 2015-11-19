@@ -1,4 +1,4 @@
-FROM azukiapp/azktcl:0.0.2
+FROM azukiapp/internal-services:0.4.0
 MAINTAINER Azuki <support@azukiapp.com>
 
 ADD file_to_add /file_to_add

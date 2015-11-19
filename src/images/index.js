@@ -20,8 +20,8 @@ export class Image {
     this.system = options.system || { image_name_suggest: null };
 
     // Extract provider information
-    // 2. i.e.: { docker: 'azukiapp/azktcl:0.0.2' }
-    // 3. i.e.: { provider: 'dockerfile', repository: 'azukiapp/azktcl' }
+    // 2. i.e.: { docker: 'azukiapp/internal-services:0.4.0' }
+    // 3. i.e.: { provider: 'dockerfile', repository: 'azukiapp/internal-services' }
     this.provider = this._parse_provider(options);
 
     if (options.hasOwnProperty(this.provider)) {
