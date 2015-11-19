@@ -24,4 +24,4 @@ dependencies:
 
 test:
   override:
-    - ./bin/azk nvm gulp test --slow
+    - ./bin/azk nvm gulp test --grep="Azk docker module, image build @slow with a valid Dockerfile should generate a valid image"
