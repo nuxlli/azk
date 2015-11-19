@@ -19,7 +19,7 @@ dependencies:
   override:
     # Install azk dependencies
     - make
-    - docker pull azukiapp/azktcl:0.0.2
+    - docker pull azukiapp/internal-services:0.4.0
     - ./bin/azk agent start --quiet
 
 test:
