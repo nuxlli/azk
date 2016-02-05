@@ -72,6 +72,7 @@
     "printf": "^0.2.0",
     "progress": "git+https://github.com/nuxlli/node-progress",
     "request": "^2.45.0",
+    "request-promise": "^2.0.0",
     "retry": "^0.6.1",
     "rsync": "^0.4.0",
     "scp2": "^0.1.4",
@@ -99,6 +100,7 @@
     "gulp-if": "^1.2.5",
     "gulp-rename": "^1.2.2",
     "hotswap": "^1.1.0",
+    "nock": "^5.2.1",
     "pretty-hrtime": "^1.0.0",
     "tmp": "0.0.23"
   }
